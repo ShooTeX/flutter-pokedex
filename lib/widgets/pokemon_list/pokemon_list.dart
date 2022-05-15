@@ -20,7 +20,8 @@ class PokemonList extends StatelessWidget {
         return const Text('Loading...');
       }
 
-      List? pokemons = result.parsedData?.pokemon_v2_pokemonspecies;
+      List<QueryAllPokemons$pokemonV2Pokemonspecies>? pokemons =
+          result.parsedData?.pokemon_v2_pokemonspecies;
 
       if (pokemons == null) {
         return const Text('No pokemon :(');
@@ -32,7 +33,7 @@ class PokemonList extends StatelessWidget {
             itemBuilder: (context, index) {
               final pokemon = pokemons[index];
 
-              return Text(pokemon?.name);
+              return Text(pokemon.name);
             }),
       );
     });
