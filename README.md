@@ -2,7 +2,9 @@
 
 A new Flutter project.
 
-Small project to try out [graphql_flutter](https://pub.dev/packages/graphql_flutter) and [graphql_codegent](https://pub.dev/packages/graphql_codegen)
+Small project to try out [graphql_flutter](https://pub.dev/packages/graphql_flutter) and [graphql_codegen](https://pub.dev/packages/graphql_codegen)
+
+Design inspired (and badly implemented by me) by [Bruna Campos](https://dribbble.com/shots/14241781-Pok-dex/attachments/5886808?mode=media)
 
 ## Getting Started
 
