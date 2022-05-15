@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:pokedex/widgets/pokemon_list/get_all_pokemons.graphql.dart';
+import 'package:pokedex/screens/home/home.graphql.dart';
 import 'package:pokedex/widgets/pokemon_list/pokemon_list.dart';
 
 class Home extends HookWidget {

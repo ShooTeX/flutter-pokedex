@@ -3,7 +3,7 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 import 'package:json_annotation/json_annotation.dart';
-part 'get_all_pokemons.graphql.g.dart';
+part 'home.graphql.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class QueryAllPokemons {

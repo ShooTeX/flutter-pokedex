@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/widgets/pokemon_list/get_all_pokemons.graphql.dart';
+import 'package:pokedex/screens/home/home.graphql.dart';
 
 class PokemonList extends StatelessWidget {
   final List<QueryAllPokemons$pokemonV2Pokemonspecies> data;

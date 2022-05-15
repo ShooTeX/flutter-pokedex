@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_all_pokemons.graphql.dart';
+part of 'home.graphql.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

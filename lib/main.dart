@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:pokedex/screens/home.dart';
+import 'package:pokedex/screens/home/home.dart';
 
 void main() async {
   await initHiveForFlutter();
