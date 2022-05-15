@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:pokedex/widgets/pokemon_list/get_all_pokemons.graphql.dart';
 
-class PokemonList extends StatelessWidget {
+class PokemonList extends HookWidget {
   const PokemonList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return QueryAllPokemonsWidget(builder: (
-      result, {
-      VoidCallback? refetch,
-      FetchMore? fetchMore,
-    }) {
-      if (result.hasException) {
-        return Text(result.exception.toString());
-      }
+    final hook = useQueryAllPokemons();
 
-      if (result.isLoading) {
-        return const Text('Loading...');
-      }
+    // INFO: dart doesn't support object destructuring yet :(
+    // but hopefully soon :) https://github.com/dart-lang/language/issues/207
+    final result = hook.result;
 
-      List<QueryAllPokemons$pokemonV2Pokemonspecies>? pokemons =
-          result.parsedData?.pokemon_v2_pokemonspecies;
+    if (result.hasException) {
+      return Text(result.exception.toString());
+    }
 
-      if (pokemons == null) {
-        return const Text('No pokemon :(');
-      }
+    if (result.isLoading) {
+      return const Text('Loading...');
+    }
 
-      return Expanded(
-        child: ListView.builder(
-            itemCount: pokemons.length,
-            itemBuilder: (context, index) {
-              final pokemon = pokemons[index];
+    List<QueryAllPokemons$pokemonV2Pokemonspecies>? pokemons =
+        result.parsedData?.pokemon_v2_pokemonspecies;
 
-              return Text(pokemon.name);
-            }),
-      );
-    });
+    if (pokemons == null) {
+      return const Text('No pokemon :(');
+    }
+
+    return Expanded(
+      child: ListView.builder(
+          itemCount: pokemons.length,
+          itemBuilder: (context, index) {
+            final pokemon = pokemons[index];
+
+            return Text(pokemon.name);
+          }),
+    );
   }
 }
