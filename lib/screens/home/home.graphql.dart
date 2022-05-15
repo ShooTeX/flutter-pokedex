@@ -6,6 +6,34 @@ import 'package:json_annotation/json_annotation.dart';
 part 'home.graphql.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+class VariablesQueryAllPokemons {
+  VariablesQueryAllPokemons({this.name});
+
+  @override
+  factory VariablesQueryAllPokemons.fromJson(Map<String, dynamic> json) =>
+      _$VariablesQueryAllPokemonsFromJson(json);
+
+  final String? name;
+
+  Map<String, dynamic> toJson() => _$VariablesQueryAllPokemonsToJson(this);
+  int get hashCode {
+    final l$name = name;
+    return Object.hashAll([l$name]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (!(other is VariablesQueryAllPokemons) ||
+        runtimeType != other.runtimeType) return false;
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) return false;
+    return true;
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class QueryAllPokemons {
   QueryAllPokemons(
       {required this.pokemon_v2_pokemonspecies, required this.$__typename});
@@ -70,7 +98,14 @@ const QUERY_ALL_POKEMONS = const DocumentNode(definitions: [
   OperationDefinitionNode(
       type: OperationType.query,
       name: NameNode(value: 'AllPokemons'),
-      variableDefinitions: [],
+      variableDefinitions: [
+        VariableDefinitionNode(
+            variable: VariableNode(name: NameNode(value: 'name')),
+            type: NamedTypeNode(
+                name: NameNode(value: 'String'), isNonNull: false),
+            defaultValue: DefaultValueNode(value: null),
+            directives: [])
+      ],
       directives: [],
       selectionSet: SelectionSetNode(selections: [
         FieldNode(
@@ -83,6 +118,18 @@ const QUERY_ALL_POKEMONS = const DocumentNode(definitions: [
                     ObjectFieldNode(
                         name: NameNode(value: 'id'),
                         value: EnumValueNode(name: NameNode(value: 'asc')))
+                  ])),
+              ArgumentNode(
+                  name: NameNode(value: 'where'),
+                  value: ObjectValueNode(fields: [
+                    ObjectFieldNode(
+                        name: NameNode(value: 'name'),
+                        value: ObjectValueNode(fields: [
+                          ObjectFieldNode(
+                              name: NameNode(value: '_regex'),
+                              value:
+                                  VariableNode(name: NameNode(value: 'name')))
+                        ]))
                   ]))
             ],
             directives: [],
@@ -120,6 +167,7 @@ QueryAllPokemons _parserFnQueryAllPokemons(Map<String, dynamic> data) =>
 class OptionsQueryAllPokemons extends graphql.QueryOptions<QueryAllPokemons> {
   OptionsQueryAllPokemons(
       {String? operationName,
+      VariablesQueryAllPokemons? variables,
       graphql.FetchPolicy? fetchPolicy,
       graphql.ErrorPolicy? errorPolicy,
       graphql.CacheRereadPolicy? cacheRereadPolicy,
@@ -127,6 +175,7 @@ class OptionsQueryAllPokemons extends graphql.QueryOptions<QueryAllPokemons> {
       Duration? pollInterval,
       graphql.Context? context})
       : super(
+            variables: variables?.toJson() ?? {},
             operationName: operationName,
             fetchPolicy: fetchPolicy,
             errorPolicy: errorPolicy,
@@ -142,6 +191,7 @@ class WatchOptionsQueryAllPokemons
     extends graphql.WatchQueryOptions<QueryAllPokemons> {
   WatchOptionsQueryAllPokemons(
       {String? operationName,
+      VariablesQueryAllPokemons? variables,
       graphql.FetchPolicy? fetchPolicy,
       graphql.ErrorPolicy? errorPolicy,
       graphql.CacheRereadPolicy? cacheRereadPolicy,
@@ -152,6 +202,7 @@ class WatchOptionsQueryAllPokemons
       bool carryForwardDataOnException = true,
       bool fetchResults = false})
       : super(
+            variables: variables?.toJson() ?? {},
             operationName: operationName,
             fetchPolicy: fetchPolicy,
             errorPolicy: errorPolicy,
@@ -167,8 +218,13 @@ class WatchOptionsQueryAllPokemons
 }
 
 class FetchMoreOptionsQueryAllPokemons extends graphql.FetchMoreOptions {
-  FetchMoreOptionsQueryAllPokemons({required graphql.UpdateQuery updateQuery})
-      : super(updateQuery: updateQuery, document: QUERY_ALL_POKEMONS);
+  FetchMoreOptionsQueryAllPokemons(
+      {required graphql.UpdateQuery updateQuery,
+      VariablesQueryAllPokemons? variables})
+      : super(
+            updateQuery: updateQuery,
+            variables: variables?.toJson() ?? {},
+            document: QUERY_ALL_POKEMONS);
 }
 
 extension ClientExtensionQueryAllPokemons on graphql.GraphQLClient {
@@ -179,16 +235,21 @@ extension ClientExtensionQueryAllPokemons on graphql.GraphQLClient {
           [WatchOptionsQueryAllPokemons? options]) =>
       this.watchQuery(options ?? WatchOptionsQueryAllPokemons());
   void writeQueryAllPokemons(
-          {required QueryAllPokemons data, bool broadcast = true}) =>
+          {required QueryAllPokemons data,
+          VariablesQueryAllPokemons? variables,
+          bool broadcast = true}) =>
       this.writeQuery(
           graphql.Request(
-              operation: graphql.Operation(document: QUERY_ALL_POKEMONS)),
+              operation: graphql.Operation(document: QUERY_ALL_POKEMONS),
+              variables: variables?.toJson() ?? const {}),
           data: data.toJson(),
           broadcast: broadcast);
-  QueryAllPokemons? readQueryAllPokemons({bool optimistic = true}) {
+  QueryAllPokemons? readQueryAllPokemons(
+      {VariablesQueryAllPokemons? variables, bool optimistic = true}) {
     final result = this.readQuery(
         graphql.Request(
-            operation: graphql.Operation(document: QUERY_ALL_POKEMONS)),
+            operation: graphql.Operation(document: QUERY_ALL_POKEMONS),
+            variables: variables?.toJson() ?? const {}),
         optimistic: optimistic);
     return result == null ? null : QueryAllPokemons.fromJson(result);
   }

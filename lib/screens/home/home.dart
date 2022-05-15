@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:pokedex/screens/home/home.graphql.dart';
+import 'package:pokedex/utils/hooks/use_debounced_search.dart';
 import 'package:pokedex/widgets/pokemon_list/pokemon_list.dart';
 
 class Home extends HookWidget {
@@ -8,7 +9,11 @@ class Home extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final allPokemonsQuery = useQueryAllPokemons();
+    final controller = useTextEditingController();
+    final search = useDebouncedSearch(controller);
+
+    final allPokemonsQuery = useQueryAllPokemons(OptionsQueryAllPokemons(
+        variables: VariablesQueryAllPokemons(name: search)));
 
     /* INFO: 
     dart doesn't support object destructuring yet :(
@@ -40,6 +45,7 @@ class Home extends HookWidget {
               Container(
                 padding: const EdgeInsets.only(top: 10),
                 child: TextField(
+                  controller: controller,
                   style: const TextStyle(fontSize: 14),
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(vertical: 10),

@@ -6,6 +6,18 @@ part of 'home.graphql.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+VariablesQueryAllPokemons _$VariablesQueryAllPokemonsFromJson(
+        Map<String, dynamic> json) =>
+    VariablesQueryAllPokemons(
+      name: json['name'] as String?,
+    );
+
+Map<String, dynamic> _$VariablesQueryAllPokemonsToJson(
+        VariablesQueryAllPokemons instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };
+
 QueryAllPokemons _$QueryAllPokemonsFromJson(Map<String, dynamic> json) =>
     QueryAllPokemons(
       pokemon_v2_pokemonspecies:
