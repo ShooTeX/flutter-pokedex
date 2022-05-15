@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:pokedex/widgets/pokemon_list/get_all_pokemons.graphql.dart';
 import 'package:pokedex/widgets/pokemon_list/pokemon_list.dart';
 
-class Home extends StatelessWidget {
+class Home extends HookWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final allPokemonsQuery = useQueryAllPokemons();
+
+    /* INFO: 
+    dart doesn't support object destructuring yet :(
+    but hopefully soon :) https://github.com/dart-lang/language/issues/207 
+    */
+    final allPokemons = allPokemonsQuery.result;
+
+    List<QueryAllPokemons$pokemonV2Pokemonspecies>? pokemons =
+        allPokemons.parsedData?.pokemon_v2_pokemonspecies;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -45,7 +58,9 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ),
-              const PokemonList(),
+              allPokemons.isLoading
+                  ? const Text('loading...')
+                  : PokemonList(data: pokemons ?? []),
             ],
           ),
         ),
