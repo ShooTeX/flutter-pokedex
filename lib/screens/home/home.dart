@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pokedex/screens/home/home.graphql.dart';
 import 'package:pokedex/utils/hooks/use_debounced_search.dart';
 import 'package:pokedex/widgets/pokemon_list/pokemon_list.dart';
@@ -36,9 +37,9 @@ class Home extends HookWidget {
               Text(
                 'Pokédex',
                 style: Theme.of(context).textTheme.headlineMedium?.merge(
-                      TextStyle(
+                      const TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.red[600],
+                        color: Color(0xFFC0392B),
                       ),
                     ),
               ),
@@ -64,8 +65,15 @@ class Home extends HookWidget {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
               allPokemons.isLoading
-                  ? const Text('loading...')
+                  ? const Expanded(
+                      child: SpinKitWave(
+                        color: Colors.grey,
+                      ),
+                    )
                   : PokemonList(data: pokemons ?? []),
             ],
           ),

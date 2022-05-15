@@ -147,6 +147,25 @@ const QUERY_ALL_POKEMONS = const DocumentNode(definitions: [
                   directives: [],
                   selectionSet: null),
               FieldNode(
+                  name: NameNode(value: 'pokemon_v2_pokemoncolor'),
+                  alias: NameNode(value: 'color'),
+                  arguments: [],
+                  directives: [],
+                  selectionSet: SelectionSetNode(selections: [
+                    FieldNode(
+                        name: NameNode(value: 'name'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null),
+                    FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null)
+                  ])),
+              FieldNode(
                   name: NameNode(value: '__typename'),
                   alias: null,
                   arguments: [],
@@ -276,7 +295,10 @@ class QueryAllPokemonsWidget extends graphql_flutter.Query<QueryAllPokemons> {
 @JsonSerializable(explicitToJson: true)
 class QueryAllPokemons$pokemonV2Pokemonspecies {
   QueryAllPokemons$pokemonV2Pokemonspecies(
-      {required this.name, required this.id, required this.$__typename});
+      {required this.name,
+      required this.id,
+      this.color,
+      required this.$__typename});
 
   @override
   factory QueryAllPokemons$pokemonV2Pokemonspecies.fromJson(
@@ -287,6 +309,8 @@ class QueryAllPokemons$pokemonV2Pokemonspecies {
 
   final int id;
 
+  final QueryAllPokemons$pokemonV2Pokemonspecies$color? color;
+
   @JsonKey(name: '__typename')
   final String $__typename;
 
@@ -295,8 +319,9 @@ class QueryAllPokemons$pokemonV2Pokemonspecies {
   int get hashCode {
     final l$name = name;
     final l$id = id;
+    final l$color = color;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$name, l$id, l$$__typename]);
+    return Object.hashAll([l$name, l$id, l$color, l$$__typename]);
   }
 
   @override
@@ -310,6 +335,9 @@ class QueryAllPokemons$pokemonV2Pokemonspecies {
     final l$id = id;
     final lOther$id = other.id;
     if (l$id != lOther$id) return false;
+    final l$color = color;
+    final lOther$color = other.color;
+    if (l$color != lOther$color) return false;
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
     if (l$$__typename != lOther$$__typename) return false;
@@ -320,9 +348,60 @@ class QueryAllPokemons$pokemonV2Pokemonspecies {
 extension UtilityExtensionQueryAllPokemons$pokemonV2Pokemonspecies
     on QueryAllPokemons$pokemonV2Pokemonspecies {
   QueryAllPokemons$pokemonV2Pokemonspecies copyWith(
-          {String? name, int? id, String? $__typename}) =>
+          {String? name,
+          int? id,
+          QueryAllPokemons$pokemonV2Pokemonspecies$color? Function()? color,
+          String? $__typename}) =>
       QueryAllPokemons$pokemonV2Pokemonspecies(
           name: name == null ? this.name : name,
           id: id == null ? this.id : id,
+          color: color == null ? this.color : color(),
+          $__typename: $__typename == null ? this.$__typename : $__typename);
+}
+
+@JsonSerializable(explicitToJson: true)
+class QueryAllPokemons$pokemonV2Pokemonspecies$color {
+  QueryAllPokemons$pokemonV2Pokemonspecies$color(
+      {required this.name, required this.$__typename});
+
+  @override
+  factory QueryAllPokemons$pokemonV2Pokemonspecies$color.fromJson(
+          Map<String, dynamic> json) =>
+      _$QueryAllPokemons$pokemonV2Pokemonspecies$colorFromJson(json);
+
+  final String name;
+
+  @JsonKey(name: '__typename')
+  final String $__typename;
+
+  Map<String, dynamic> toJson() =>
+      _$QueryAllPokemons$pokemonV2Pokemonspecies$colorToJson(this);
+  int get hashCode {
+    final l$name = name;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$name, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (!(other is QueryAllPokemons$pokemonV2Pokemonspecies$color) ||
+        runtimeType != other.runtimeType) return false;
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) return false;
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) return false;
+    return true;
+  }
+}
+
+extension UtilityExtensionQueryAllPokemons$pokemonV2Pokemonspecies$color
+    on QueryAllPokemons$pokemonV2Pokemonspecies$color {
+  QueryAllPokemons$pokemonV2Pokemonspecies$color copyWith(
+          {String? name, String? $__typename}) =>
+      QueryAllPokemons$pokemonV2Pokemonspecies$color(
+          name: name == null ? this.name : name,
           $__typename: $__typename == null ? this.$__typename : $__typename);
 }

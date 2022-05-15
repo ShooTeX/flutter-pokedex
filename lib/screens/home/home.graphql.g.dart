@@ -41,6 +41,10 @@ QueryAllPokemons$pokemonV2Pokemonspecies
         QueryAllPokemons$pokemonV2Pokemonspecies(
           name: json['name'] as String,
           id: json['id'] as int,
+          color: json['color'] == null
+              ? null
+              : QueryAllPokemons$pokemonV2Pokemonspecies$color.fromJson(
+                  json['color'] as Map<String, dynamic>),
           $__typename: json['__typename'] as String,
         );
 
@@ -49,5 +53,21 @@ Map<String, dynamic> _$QueryAllPokemons$pokemonV2PokemonspeciesToJson(
     <String, dynamic>{
       'name': instance.name,
       'id': instance.id,
+      'color': instance.color?.toJson(),
+      '__typename': instance.$__typename,
+    };
+
+QueryAllPokemons$pokemonV2Pokemonspecies$color
+    _$QueryAllPokemons$pokemonV2Pokemonspecies$colorFromJson(
+            Map<String, dynamic> json) =>
+        QueryAllPokemons$pokemonV2Pokemonspecies$color(
+          name: json['name'] as String,
+          $__typename: json['__typename'] as String,
+        );
+
+Map<String, dynamic> _$QueryAllPokemons$pokemonV2Pokemonspecies$colorToJson(
+        QueryAllPokemons$pokemonV2Pokemonspecies$color instance) =>
+    <String, dynamic>{
+      'name': instance.name,
       '__typename': instance.$__typename,
     };

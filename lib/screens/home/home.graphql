@@ -2,5 +2,8 @@ query AllPokemons($name: String) {
   pokemon_v2_pokemonspecies(order_by: {id: asc}, where: {name: {_regex: $name}}) {
     name
     id
+    color: pokemon_v2_pokemoncolor {
+      name
+    }
   }
 }
