@@ -1,0 +1,6 @@
+query AllPokemons {
+  pokemon_v2_pokemonspecies(order_by: {id: asc}) {
+    name
+    id
+  }
+}
